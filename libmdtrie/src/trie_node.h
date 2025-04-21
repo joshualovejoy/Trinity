@@ -23,10 +23,7 @@ public:
   inline trie_node<DIMENSION> *get_child(morton_t symbol)
   {
     auto trie_ptr = (trie_node<DIMENSION> **)trie_or_treeblock_ptr_;
-    // // quick fix, not sure why some data is corrupted
-    // if ((trie_ptr > (trie_node<DIMENSION> **) 0x555555500000) && (trie_ptr < (trie_node<DIMENSION> **) 0x600000000000))
-      return trie_ptr[symbol];
-    // return NULL;
+    return trie_ptr[symbol];
   }
 
   inline void set_child(morton_t symbol, trie_node *node)
