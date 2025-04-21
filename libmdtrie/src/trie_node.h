@@ -23,7 +23,10 @@ public:
   inline trie_node<DIMENSION> *get_child(morton_t symbol)
   {
     auto trie_ptr = (trie_node<DIMENSION> **)trie_or_treeblock_ptr_;
-    return trie_ptr[symbol];
+    // // quick fix, not sure why some data is corrupted
+    // if ((trie_ptr > (trie_node<DIMENSION> **) 0x555555500000) && (trie_ptr < (trie_node<DIMENSION> **) 0x600000000000))
+      return trie_ptr[symbol];
+    // return NULL;
   }
 
   inline void set_child(morton_t symbol, trie_node *node)
@@ -66,6 +69,8 @@ public:
 
   uint64_t size(level_t num_children, bool is_leaf)
   {
+    // if (is_valid((void *) this))
+    //     return 0;
 
     uint64_t total_size = sizeof(trie_or_treeblock_ptr_);
     total_size += sizeof(parent_trie_node_); // parent_trie_node_
